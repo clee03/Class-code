@@ -1,0 +1,347 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\title{Inductive proof examples}
+\author{CS161}
+\begin{document}
+\maketitle
+
+\section{Sum from 1 to n}
+We want to prove that \(1 + 2 + ... + n \) can be calculated with \( \frac{n(n+1)}{2} \)
+\subsection{Definitions}
+We will define a function to let us talk about the sum of numbers from 1 to $n$. Let:
+\begin{equation}
+F(n) = 1 + 2 + ... + n
+\end{equation}
+We will define a predicate to let us talk about the relationship between $F(n)$ and the shortcut calculation. Let:
+\begin{equation}
+P(n): F(n) = \frac{n(n + 1)}{2}
+\end{equation}
+Note that $P(n)$ evaluates to a boolean. It can be true or false for any particular $n$. It is true for a particular value of $n$ if $F(n)$ does in fact equal \( \frac{n(n + 1)}{2} \) and it is false if these two things are not equal.
+
+\subsection{Goal}
+Our goal is to prove that $P(n)$ holds (is true) for all values of $n$ greater than 0. Prove:
+\begin{equation}
+\forall n \in N : P(n)
+\end{equation}
+
+\subsection{Proof by induction}
+\subsubsection{Base case}
+To show our base case $P(1)$ is true, we will state the base case, then show that the left side does in fact equal the right side. Prove:
+\begin{equation}
+P(1): F(1) = \frac{1(1 + 1)}{2}
+\end{equation}
+\[ F(1) = 1 \]
+\[ \frac{1(1 + 1)}{2} = \frac{2}{2} = 1 \]
+
+\subsubsection{Inductive step}
+We will prove that \textbf{if} $P(k)$ holds (is true) for some $k \in N$, \textbf{then} $P(k + 1)$ is also true. Prove:
+\begin{equation}
+P(k) \implies P(k + 1), \forall k \in N
+\end{equation}
+We start with the \textit{inductive hypothesis}, we assume for the time that $P(k)$ holds. Assume:
+\begin{equation}
+P(k): F(k) = \frac{k(k + 1)}{2}
+\end{equation}
+Now, assuming that $P(k)$ is true, prove:
+\begin{equation}
+P(k + 1): F(k + 1) = \frac{(k + 1)((k + 1) + 1)}{2}
+\end{equation}
+By definition:
+\[ F(k + 1) = 1 + 2 + ... + k + (k + 1) \]
+which is by definition:
+\[ F(k + 1) = F(k) + (k + 1) \]
+which by our inductive hypothesis is:
+\[ F(k + 1) = \frac{k(k + 1)}{2} + (k + 1) \]
+simplifying is:
+\[ F(k + 1) = (k + 1) (\frac{k}{2} + 1) \]
+which is equivalent to:
+\[ F(k + 1) = (k + 1) (\frac{k}{2} + \frac{2}{2}) \]
+which simplifies to:
+\[ F(k + 1) = \frac{(k + 1) (k + 2)}{2} \]
+which is clearly:
+\[ F(k + 1) = \frac{(k + 1) ((k + 1) + 1)}{2} \]
+And so we have proved $P(k + 1)$ (7) by showing that the left side is equal to the right side (assuming that $P(k)$ is true).
+\subsection{Conclusion}
+We have proved that $P(n)$ holds for a base case of $P(1)$ and that for all $k \in N$, $P(k)$ being true implies that $P(k + 1)$ is also true. Therefore $P(n)$ holds for all $n > 0$ (all natural numbers).
+\[P(1): F(1) = \frac{1(1 + 1)}{2}\]
+\[P(k) \implies P(k + 1), \forall k \in N \]
+\[ \therefore P(n), \forall n \in N \]
+
+
+\section{Making postage with 3 and 5 cent stamps}
+We want to prove that all postage amounts greater than 7 cents can be made with combinations of 3 and 5 cent stamps
+
+\subsection{Definitions}
+We will define a predicate to talk about whether a particular number can be represented as a summation of a non-negative multiple of 3 and a non-negative multiple of 5.
+\begin{equation}
+P(n): n = 3a + 5b \mid a,b \in \mathbb Z_{\ge 0}
+\end{equation}
+Note that $P(n)$ may be true or false for any given number $n$. For example, $P(2)$ is false, as 2 cents of postage cannot be made with 3 and 5 cent stamps. However, $P(11)$ is true, because 11 cents of postage can be made with a 5 cent stamp and two 3 cent stamps.
+
+\subsection{Goal}
+Our goal is to prove that $P(n)$ holds for all values of $n$ greater than 7.
+\begin{equation}
+\forall n \in \mathbb Z_{> 7} : P(n)
+\end{equation}
+
+\subsection{Proof by induction}
+\subsubsection{Base case}
+To show that the base case $P(8)$ is true, we will state the base case, then show that we can find suitable non-negative integers $a$ and $b$. Prove:
+\begin{equation}
+P(8): 8 = 3a + 5b
+\end{equation}
+\[ a,b = 1 \]
+
+\subsubsection{Inductive step}
+We will prove that \textbf{if} $P(k)$ holds (is true) for some $k \in \mathbb Z_{> 7}$, \textbf{then} $P(k + 1)$ is also true. Prove:
+\begin{equation}
+P(k) \implies P(k + 1), \forall k \in \mathbb Z_{> 7}
+\end{equation}
+We start with the \textit{inductive hypothesis}, we assume for the time that $P(k)$ holds. Assume:
+\begin{equation}
+P(k): k = 3a + 5b \mid a,b \in \mathbb Z_{\ge 0}
+\end{equation}
+Now, assuming that $P(k)$ is true, prove:
+\begin{equation}
+P(k + 1): k + 1 = 3c + 5d \mid c,d \in \mathbb Z_{\ge 0}
+\end{equation}
+If $b > 0$, then $d = b - 1$ and $c = a + 2$ results in:
+\[ 3c + 5d = 3(a + 2) + 5(b - 1) = 3a + 5b + 1 = k + 1 \]
+By our inductive hypothesis, we assumed that $a$ and $b$ were non-negative integers, and so $c$ and $d$ will be too.
+
+If $b = 0$, then $k$ must be a multiple of 3. The smallest multiple of 3 in $\mathbb Z_{> 7}$ is 9, which is $3 * 3$. All other multiples of 3 in $\mathbb Z_{> 7}$ will have a greater or equal number of 3 in their all-3 representation ($b = 0$). Therefore if $b = 0$, then $a \ge 3$. So $d = b + 2$ and $c = a - 3$ results in:
+\[ 3c + 5d = 3(a - 3) + 5(b + 2) = 3a + 5b + 1 = k + 1 \]
+By our inductive hypothesis and our reasoning that $a$ must be greater than or equal to 3 in the case where $b = 0$, then $c$ and $d$ will be non-negative integers too.
+
+And so we have proved $P(k + 1)$ (13) by assuming $P(k)$ (12) was true. If $P(k)$, then $P(k + 1$ (11).
+
+\subsection{Conclusion}
+We have proved that $P(n)$ holds for a base case of $P(8)$ and that for all $k \in \mathbb Z_{> 7}$, $P(k)$ being true implies that $P(k + 1)$ is also true. Therefore $P(n)$ holds for all $n > 7$.
+\[P(8): 8 = 3(1) + 5(1) \]
+\[P(k) \implies P(k + 1), \forall k \in  \mathbb Z_{> 7}\]
+\[ \therefore P(n), \forall n \in \mathbb Z_{> 7} \]
+
+
+\section{Proof with inequality}
+We want to prove that for any integer $n$ greater than 6, $n!$ is greater than $3^n$.
+\[n! > 3^n \mid n > 6 \]
+\subsection{Definitions}
+We will define a predicate to let us talk about an inequality relationship between $n!$ and $3^n$. Let:
+\begin{equation}
+P(n): n! > 3^n
+\end{equation}
+Note that $P(n)$ may be true or false for any particular choice of $n$. For example, $P(2)$ is false because $2!$ is not greater than $3^2$. But $P(7)$ is true because $7!$ (5040) \textbf{is} greater than $3^7$ (2187).
+
+\subsection{Goal}
+Our goal is to prove that $P(n)$ holds for all values of $n$ greater than 6.
+\begin{equation}
+\forall n \in \mathbb Z_{> 6} : P(n)
+\end{equation}
+
+\subsection{Proof by induction}
+\subsubsection{Base case}
+To show that the base case $P(7)$ is true, we will state the base case, then show that the inequality is true. Prove:
+\begin{equation}
+P(7): 7! > 3^7
+\end{equation}
+\[ 7! = 5040 > 2187 = 3^7 \]
+
+\subsubsection{Inductive step}
+We will prove that \textbf{if} $P(k)$ holds (is true) for some $k \in \mathbb Z_{> 6}$, \textbf{then} $P(k + 1)$ is also true. Prove:
+\begin{equation}
+P(k) \implies P(k + 1), \forall k \in \mathbb Z_{> 6}
+\end{equation}
+We start with the \textit{inductive hypothesis}, we assume for the time that $P(k)$ holds. Assume:
+\begin{equation}
+P(k): k! > 3^k \mid k \in \mathbb Z_{> 6}
+\end{equation}
+Now, assuming that $P(k)$ is true, prove:
+\begin{equation}
+P(k + 1): (k + 1)! > 3^{k + 1}
+\end{equation}
+Starting with the left side:
+\[ (k + 1)! = (k + 1) k! \]
+Using our inductive hypothesis:
+\[ (k + 1)! > (k + 1) 3^k \]
+\[ (k + 1)! > \frac{1}{1} (k + 1) 3^k \]
+\[ (k + 1)! > \frac{3}{3} (k + 1) 3^k \]
+\[ (k + 1)! > \frac{k + 1}{3} 3 * 3^k \]
+\[ (k + 1)! > \frac{k + 1}{3} 3^1 * 3^k \]
+\[ (k + 1)! > \frac{k + 1}{3} 3^{k + 1} \]
+And if $\frac{k + 1}{3}$ is greater than 1:
+\[ (k + 1)! > \frac{k + 1}{3} 3^{k + 1} > 3^{k + 1} \]
+therefore:
+\[ (k + 1)! > 3^{k + 1} \]
+Since $k \in \mathbb Z_{> 6}$, we know that $\frac{k + 1}{3}$ will always be greater than $\frac{6}{3}$ which is greater than 1.
+And so we have proved $P(k + 1)$ (19) by assuming $P(k)$ (18) was true. If $P(k)$, then $P(k + 1$ (17).
+
+\subsection{Conclusion}
+We have proved that $P(n)$ holds for a base case of $P(7)$ and that for all $k \in \mathbb Z_{> 6}$, $P(k)$ being true implies that $P(k + 1)$ is also true. Therefore $P(n)$ holds for all $n > 6$.
+\[P(7): 7! > 3^7 \]
+\[P(k) \implies P(k + 1), \forall k \in  \mathbb Z_{> 6}\]
+\[ \therefore P(n), \forall n \in \mathbb Z_{> 6} \]
+
+
+
+\section{Proof of divisibility}
+This is related to our stamp problem. We want to prove that for any integer $n$ greater than or equal to 0, $3^{2n} - 1$ is divisible by 8.
+\[ 3^{2n} - 1 \equiv 0 \mod 8 \]
+\subsection{Definitions}
+We will define a predicate to let us talk about the divisibility of our expression. Let:
+\begin{equation}
+P(n): 3^{2n} - 1 \equiv 0 \mod 8
+\end{equation}
+Note that $P(n)$ may be true or false for any particular choice of $n$. For example, $P(0)$ is true because $3^0 - 1 = 0$ is divisible by 8. But $P(-1)$ is false because $3^{-2} - 1 = -\frac{8}{9}$ is not divisible by 8.
+
+\subsection{Goal}
+Our goal is to prove that $P(n)$ holds for all values of $n$ greater than or equal to 0.
+\begin{equation}
+\forall n \in \mathbb Z_{\ge 0} : P(n)
+\end{equation}
+
+\subsection{Proof by induction}
+\subsubsection{Base case}
+To show that the base case $P(0)$ is true, we will state the base case, then show it is true. Prove:
+\begin{equation}
+P(0): 3^{2(0)} - 1 \equiv 0 \mod 8
+\end{equation}
+\[ 3^0 - 1 = 0 \]
+
+\subsubsection{Inductive step}
+We will prove that \textbf{if} $P(k)$ holds (is true) for some $k \in \mathbb Z_{\ge 0}$, \textbf{then} $P(k + 1)$ is also true. Prove:
+\begin{equation}
+P(k) \implies P(k + 1), \forall k \in \mathbb Z_{\ge 0}
+\end{equation}
+We start with the \textit{inductive hypothesis}, we assume for the time that $P(k)$ holds. Assume:
+\begin{equation}
+P(k): 3^{2k} - 1 \equiv 0 \mod 8 \mid k \in \mathbb Z_{\ge 0}
+\end{equation}
+Now, assuming that $P(k)$ is true, prove:
+\begin{equation}
+P(k + 1): 3^{2(k + 1)} - 1 \equiv 0 \mod 8
+\end{equation}
+Starting with the left side:
+\[ 3^{2(k + 1)} - 1 = 3^{2k + 2} - 1 \]
+\[ 3^{2(k + 1)} - 1 = 3^{2k} * 9 - 1 \]
+\[ 3^{2(k + 1)} - 1 = 3^{2k} * (8 + 1) - 1 \]
+\[ 3^{2(k + 1)} - 1 = 3^{2k} * 8 + 3^{2k} - 1 \]
+The left expression, ($3^{2k} * 8$) is clearly divisible by 8 because any whole number multiplied by 8 is divisible by 8. (We know it is a whole number because k is non-negative). And the right expression ($3^{2k} - 1$) is, by our \textit{inductive hypothesis}, divisible by 8. So
+\[ 3^{2(k + 1)} - 1 = 8a + 8b \mid a,b \in \mathbb Z\]
+\[ 3^{2(k + 1)} - 1 = 8(a + b) \mid a,b \in \mathbb Z\]
+Therefore $3^{2(k + 1)} - 1$ is divisible by 8, because any whole number times 8 is divisible by 8. And so we have proved $P(k + 1)$ (25) by assuming $P(k)$ (24) was true. If $P(k)$, then $P(k + 1)$ (23).
+
+\subsection{Conclusion}
+We have proved that $P(n)$ holds for a base case of $P(0)$ and that for all $k \in \mathbb Z_{\ge 0}$, $P(k)$ being true implies that $P(k + 1)$ is also true. Therefore $P(n)$ holds for all $n \ge 0$.
+\[P(0): 3^{2(0)} - 1 \equiv 0 \mod 8 \]
+\[P(k) \implies P(k + 1), \forall k \in \mathbb Z_{\ge 0}\]
+\[ \therefore P(n), \forall n \in \mathbb Z_{\ge 0} \]
+
+
+
+\section{Another inequality proof}
+Prove that for all integers \( n \geq 4 \) that \( n^2 \leq n! \)
+\subsection{Definitions}
+Let:
+\begin{equation}
+P(n): n^2 \leq n!
+\end{equation}
+
+\subsection{Goal}
+We will prove
+\begin{equation}
+\forall n \in \mathbb Z_{\geq 4} : P(n)
+\end{equation}
+
+\subsection{Proof by induction}
+\subsubsection{Base case}
+\begin{equation}
+P(4): 4^2 \leq 4!
+\end{equation}
+\[ 16 \leq 24 \]
+
+\subsubsection{Inductive step}
+We will prove:
+\begin{equation}
+P(k) \implies P(k + 1), \forall k \in \mathbb Z_{\geq 4}
+\end{equation}
+\textit{Inductive hypothesis}, assume:
+\begin{equation}
+P(k): k^2 \leq k!
+\end{equation}
+Now prove:
+\begin{equation}
+P(k + 1): (k + 1)^2 \leq (k + 1)!
+\end{equation}
+Starting with the left side:
+\[ (k + 1)^2 = k^2 + 2k + 1 \]
+Using our inductive hypothesis:
+\[ (k + 1)^2 \leq k! + 2k + 1 \]
+If we can prove that for $k \geq 4$:
+\[ P'(k): k! + 2k + 1 \leq (k + 1)! \]
+then we will have proved $P(k + 1)$.
+
+We can rewrite $P'(k)$ to equivalent expressions:
+\[ P'(k): 2k + 1 \leq (k + 1)! - k! \]
+\[ P'(k): 2k + 1 \leq (k + 1)k! - k! \]
+\[ P'(k): 2k + 1 \leq ((k + 1) - 1)k! \]
+\[ P'(k): 2k + 1 \leq k * k! \]
+\[ P'(k): 1 + \frac{1}{2k} \leq \frac{k * k!}{2k} \]
+\[ P'(k): 1 + \frac{1}{2k} \leq \frac{k!}{2} \]
+If $k > 0$, then $1 + \frac{1}{2k} < 2$. And if $k > 2$, then $\frac{k!}{2} = k * (k - 1) * ... * 3$ which is greater than 2. So for $k \geq 4$:
+\[ 1 + \frac{1}{2k} < 2 < \frac{k!}{2} \]
+Therefore $P'(k)$ and $P(k + 1)$ are true.
+
+\subsection{Conclusion}
+We have proved that $P(n)$ holds for a base case of $P(4)$ and that for all $k \in \mathbb Z_{\geq 4}$, $P(k)$ implies $P(k + 1)$. Therefore $P(n)$ holds for all $n \geq 4$.
+
+
+\section{Another divisibility proof}
+Prove that 6 evenly divides \( n^3 - n \) for every non-negative integer $n$.
+\subsection{Definitions}
+Let:
+\begin{equation}
+P(n): n^3 - n \equiv 0 \mod 6
+\end{equation}
+
+\subsection{Goal}
+We will prove that $P(n)$ holds for all values of $n$ greater than or equal to 0.
+\begin{equation}
+\forall n \in \mathbb Z_{\ge 0} : P(n)
+\end{equation}
+
+\subsection{Proof by induction}
+\subsubsection{Base case}
+\begin{equation}
+P(0): 0^3 - 0 \equiv 0 \mod 6
+\end{equation}
+\[ 0^3 - 0 = 0 \]
+
+\subsubsection{Inductive step}
+We will prove:
+\begin{equation}
+P(k) \implies P(k + 1), \forall k \in \mathbb Z_{\geq 0}
+\end{equation}
+\textit{Inductive hypothesis}, assume:
+\begin{equation}
+P(k): k^3 - k \equiv 0 \mod 6
+\end{equation}
+Now prove:
+\begin{equation}
+P(k + 1): (k + 1)^3 - (k + 1) \equiv 0 \mod 6
+\end{equation}
+Starting with the left side:
+\[ (k + 1)^3 - (k + 1) = k^3 + 3k^2 + 3k + 1 - (k + 1)\]
+\[ (k + 1)^3 - (k + 1) = k^3 + 3k^2 + 2k \]
+\[ (k + 1)^3 - (k + 1) = k^3 - k + 3k^2 + 3k \]
+\[ (k + 1)^3 - (k + 1) = (k^3 - k) + 3(k^2 + k) \]
+By our \textit{inductive hypothesis} the expression $k^3 - k$ is divisible by 6. If we can prove that $k^2 + k$ is a multiple of 2 (even), then the expression $3(k^2 + k)$ is also divisible by 6, proving $P(k + 1)$.
+
+If $k$ is even, then $k^2 + k$ is even, and if $k$ is odd then $k^2 + k$ is also even. Therefore $k^2 + k$ must be a multiple of 2.
+
+\subsection{Conclusion}
+We have proved that $P(n)$ holds for a base case of $P(0)$ and that for all $n \in \mathbb Z_{\ge 0}$, $P(n)$ being true implies that $P(n + 1)$ is also true. Therefore $P(n)$ holds for all $n \ge 0$.
+
+
+\end{document}
